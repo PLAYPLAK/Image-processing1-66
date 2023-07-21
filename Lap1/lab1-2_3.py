@@ -38,3 +38,6 @@ plt.imshow(masked_img)
 plt.title("Bitwise AND")
 
 plt.show()
+
+
+#link code ข้อนี้อ้างจากอันนี้นะ https://www.tutorialspoint.com/how-to-mask-an-image-in-opencv-python
