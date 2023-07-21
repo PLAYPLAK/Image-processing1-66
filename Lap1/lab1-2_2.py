@@ -29,10 +29,12 @@ video_writer = cv2.VideoWriter(output_file, fourcc, frame_rate, (width, height))
 
 weight_arr = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0]
 
+#ภาพที่ 1 ปรากฏ แล้วค่อยๆ เปลี่ยนเป็นภาพที่ 2
 for w1, w2 in zip(weight_arr, weight_arr[::-1]):
     im_add = cv2.addWeighted(image1, w1, image2, w2, 0)
     video_writer.write(im_add)
 
+#ภาพที่ 2 ปรากฏ แล้วค่อยๆ เปลี่ยนเป็นภาพที่ 1
 for w2, w1 in zip(weight_arr, weight_arr[::-1]):
     im_add = cv2.addWeighted(image1, w1, image2, w2, 0)
     video_writer.write(im_add)
