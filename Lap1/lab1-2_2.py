@@ -27,7 +27,7 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 # Create the video writer object
 video_writer = cv2.VideoWriter(output_file, fourcc, frame_rate, (width, height))
 
-weight_arr = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1]
+weight_arr = [1.0, 0.9, 0.8, 0.7, 0.6, 0.5, 0.4, 0.3, 0.2, 0.1, 0]
 
 for w1, w2 in zip(weight_arr, weight_arr[::-1]):
     im_add = cv2.addWeighted(image1, w1, image2, w2, 0)
