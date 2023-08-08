@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 
-image = cv2.imread("kmitl.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
 new_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
 # create figure

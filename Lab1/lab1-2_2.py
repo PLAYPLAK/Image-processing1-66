@@ -7,8 +7,8 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-image = cv2.imread("kmitl.jpg")
-image2 = cv2.imread("chainat.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
+image2 = cv2.imread("lab1/chainat.jpg")
 
 # Convert Color
 rgb_image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)

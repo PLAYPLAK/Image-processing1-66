@@ -7,7 +7,7 @@ import matplotlib.image as mpimg
 from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
-image = cv2.imread("kmitl.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
 fig = plt.figure(figsize=(10, 10))
   
 # setting values to rows and column variables
