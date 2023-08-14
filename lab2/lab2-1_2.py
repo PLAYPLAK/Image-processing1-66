@@ -20,21 +20,27 @@ video_writer = cv2.VideoWriter(output_file, fourcc, frame_rate, (width, height))
 y_low = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 y_High = [1.5, 2, 2.5, 3, 3.5, 5.0, 5.5, 10, 15, 20]
 
+# Gamma 0 < (y) < 1
 for y in y_low:
     
     a = 1
     b = 0
     image_gamma = image**y
     output_image = (a * image_gamma ) + b
+    
+    #ปรับ ภาพให้อยู่ในช่วง [0,255]
     output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
     video_writer.write(output_image)
 
+# Gamma (y) > 1
 for y in y_High :
     
     a = 1
     b = 0
     image_gamma = image**y
     output_image = (a * image_gamma) + b
+    
+    #ปรับ ภาพให้อยู่ในช่วง [0,255]
     output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
     video_writer.write(output_image)
 
