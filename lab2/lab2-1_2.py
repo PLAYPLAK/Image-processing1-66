@@ -17,7 +17,6 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 video_writer = cv2.VideoWriter(output_file, fourcc, frame_rate, (width, height))
 
 quantization_levels = 2 ** 8
-scaling_factor = 255 / (quantization_levels - 1)
 
 y_low = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
 y_High = [1.5, 2, 2.5, 3, 3.5, 5.0, 5.5, 10, 15, 20]
@@ -31,10 +30,9 @@ for y in y_low:
     image_gamma = image**y
     output_image = (a * image_gamma ) + b
 
-    quantized_image = np.round(output_image / scaling_factor) * scaling_factor
-    output_image = np.clip(quantized_image, a_min=0, a_max=255).astype(np.uint8)
-    #video_writer.write(quantized_image)
-    video_writer.write(output_image)
+    quantized_image = ((output_image - np.min(output_image))/(np.max(output_image) - np.min(output_image))) * ((2**8)-1)
+    quantized_image = quantized_image.astype(np.uint8)
+    video_writer.write(quantized_image)
 # Gamma (y) > 1
 for y in y_High :
     
@@ -43,9 +41,8 @@ for y in y_High :
     image_gamma = image**y
     output_image = (a * image_gamma) + b
     
-    quantized_image = np.round(output_image / scaling_factor) * scaling_factor
-    output_image = np.clip(quantized_image, a_min=0, a_max=255).astype(np.uint8)
-    #video_writer.write(quantized_image)
-    video_writer.write(output_image)
+    quantized_image = ((output_image - np.min(output_image))/(np.max(output_image) - np.min(output_image))) * ((2**8)-1)
+    quantized_image = quantized_image.astype(np.uint8)
+    video_writer.write(quantized_image)
 
 video_writer.release()
