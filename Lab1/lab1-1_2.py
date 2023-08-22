@@ -17,7 +17,7 @@ columns = 4
 
 ############################################
 
-image = cv2.imread("kmitl.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
 new_image = np.array(image[:,:,[2, 1, 0]], dtype = np.uint8)
 print("Default= ")
 print(image.shape)

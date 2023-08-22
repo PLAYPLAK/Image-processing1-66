@@ -24,6 +24,7 @@ fourcc = cv2.VideoWriter_fourcc(*'mp4v')
 video_writer = cv2.VideoWriter(output_file, fourcc, frame_rate, (width, height))
 
 print(image.shape)
+image =image.astype(np.float64)
 
 #n = 1
 for a in range(-5, 6, 1) :
@@ -32,7 +33,7 @@ for a in range(-5, 6, 1) :
     output_image = (a * image) + b
     
     #ปรับ ภาพให้อยู่ในช่วง [0,255]
-    #output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
+    output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
     video_writer.write(output_image)
 
     #---------------------------------#
@@ -48,7 +49,7 @@ for b in range(0, 101, 10) :
     output_image = (a * image) + b
 
     #ปรับ ภาพให้อยู่ในช่วง [0,255]
-    #output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
+    output_image = np.clip(output_image, a_min=0, a_max=255).astype(np.uint8)
     video_writer.write(output_image)
 
     #---------------------------------#

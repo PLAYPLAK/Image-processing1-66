@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 
-image_path = 'lab1/kmitl.jpg'
+image_path = 'lab2/kmitl.jpg'
 color_image = cv2.imread(image_path)
 color_image = cv2.cvtColor(color_image, cv2.COLOR_BGR2RGB)
 

@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # Load the image in grayscale
-image = cv2.imread('kmitl.jpg', cv2.IMREAD_GRAYSCALE)
+image = cv2.imread('lab1/kmitl.jpg', cv2.IMREAD_GRAYSCALE)
 
 # Resize the image to 200x200 pixels
 width, height = 200, 200

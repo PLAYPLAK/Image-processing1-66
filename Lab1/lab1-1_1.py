@@ -17,7 +17,7 @@ columns = 4
 
 ############################################
 
-image = cv2.imread("kmitl.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
 # print(type(image))
 
 # plt.imshow(image)

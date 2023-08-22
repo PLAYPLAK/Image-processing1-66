@@ -2,7 +2,7 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 ################################################################################
-base_img = cv2.imread("lab1/chainat.jpg")
+base_img = cv2.imread("lab2/chainat.jpg")
 
 h_o_r_1 = cv2.calcHist([base_img], [0], None, [256], [0, 256])/(base_img.shape[0]*base_img.shape[1])
 h_o_g_1 = cv2.calcHist([base_img], [1], None, [256], [0, 256])/(base_img.shape[0]*base_img.shape[1])
@@ -18,7 +18,7 @@ for i in range(1,256):
     cdf_b[i]  = cdf_b[i] + cdf_b[i-1]
 
 ################################################################################
-template_img = cv2.imread("lab1/kmitl.jpg")
+template_img = cv2.imread("lab2/kmitl.jpg")
 
 h_o_r_2 = cv2.calcHist([template_img], [0], None, [256], [0, 256])/(template_img.shape[0]*template_img.shape[1])
 h_o_g_2 = cv2.calcHist([template_img], [1], None, [256], [0, 256])/(template_img.shape[0]*template_img.shape[1])

@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 ############################################
 
-image = cv2.imread("kmitl.jpg")
+image = cv2.imread("lab1/kmitl.jpg")
 gray_image = cv2.cvtColor(image, cv2.COLOR_RGB2GRAY)
 reduced_bit_depth = int(input("Enter Bit Depth : "))
 
