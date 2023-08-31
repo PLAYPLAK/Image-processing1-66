@@ -12,7 +12,7 @@ from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure(figsize=(10, 5))
   
 # setting values to rows and column variables
-rows = 3
+rows = 1
 columns = 4
 
 ############################################

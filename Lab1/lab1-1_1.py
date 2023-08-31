@@ -12,7 +12,7 @@ from mpl_toolkits.mplot3d import Axes3D
 fig = plt.figure(figsize=(10, 5))
   
 # setting values to rows and column variables
-rows = 3
+rows = 2
 columns = 4
 
 ############################################
@@ -49,7 +49,7 @@ fig.add_subplot(rows, columns, 1)
 # showing image
 plt.imshow(img_origin)
 plt.axis('on')
-plt.title("BGR")
+plt.title("6364 BGR")
   
 # Adds a subplot at the 2nd position
 fig.add_subplot(rows, columns, 2)
@@ -84,7 +84,7 @@ img_RGB = cv2.cvtColor(img_origin, cv2.COLOR_BGR2RGB)
 # showing image
 plt.imshow(img_RGB)
 plt.axis('on')
-plt.title("RGB")
+plt.title("6364 RGB")
 
 # Adds a subplot at the 6th position
 fig.add_subplot(rows, columns, 6)
@@ -112,21 +112,5 @@ img_RGB_B = img_RGB_B[:,:,2]
 plt.imshow(img_RGB_B, cmap=plt.cm.gray)
 plt.axis('on')
 plt.title("B")
-
-
-# Adds a subplot at the 9th position
-
-# r = np.array(img_origin[:,:,2], dtype = np.uint8)
-# g = np.array(img_origin[:,:,1], dtype = np.uint8)
-# b = np.array(img_origin[:,:,0], dtype = np.uint8)
-
-new_image = np.array(img_origin[:,:,[2, 1, 0]], dtype = np.uint8)
-fig.add_subplot(rows, columns, 9)
-# # showing image
-plt.imshow(new_image)
-plt.axis('on')
-plt.title("HAND MAKE")
-
-
 
 plt.show()
