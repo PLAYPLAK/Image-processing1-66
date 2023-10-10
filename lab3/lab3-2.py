@@ -11,16 +11,17 @@ from scipy import signal
 img = cv2.imread('lab3/kmitl.jpg')
 
 img = cv2.resize(img,(224,224))
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = expand_dims(img,axis=0)
+
 
 print(img.shape)
 
+img_mean = [123.68,116.779,103.939]
+img_result = img - img_mean
 
-img_mean = [103.939,116.779,123.68]
-img = img - img_mean
 
-
-plt.imshow(img[0])
+plt.imshow(img_result[0])
 plt.show()
 
 

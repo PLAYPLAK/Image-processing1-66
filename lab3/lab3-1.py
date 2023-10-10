@@ -17,7 +17,10 @@ print(model.summary())
 kernels, biases = model.layers[1].get_weights()
 print(model.layers[1].get_config())
 print(kernels[:,:,:,0])
+print(biases)
 print(kernels.shape)
+
+
 img = img_to_array(img)
 img = cv2.resize(img,(224,224))
 
@@ -29,7 +32,7 @@ print(model.summary())
 #
 feature_maps = model.predict(img_ready)
 print(feature_maps)
+
 for i in range(64):
     plt.subplot(8,8,i+1);plt.imshow(feature_maps[0][:,:,i],cmap='jet')
-plt.title('4.1')
 plt.show()

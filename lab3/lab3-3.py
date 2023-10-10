@@ -8,14 +8,15 @@ from keras.preprocessing.image import img_to_array
 from numpy import expand_dims
 from scipy import signal
 
-img = cv2.imread('test.jpg')
+img = cv2.imread('lab3/kmitl.jpg')
 img = cv2.resize(img,(224,224))
+img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 img = expand_dims(img,axis=0)
-img_mean = [103.939,116.779,123.68]
+img_mean = [123.68,116.779,103.939]
 img = img - img_mean
 
 
-#4.3
+
 model = VGG16()
 img = img[0]
 img_result = img.copy()
