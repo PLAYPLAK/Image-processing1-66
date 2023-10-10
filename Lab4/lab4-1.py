@@ -21,17 +21,18 @@ for i in range(len(filenames)):
 
 all_imgs = np.array(all_imgs)
 
+
 train_x,test_x = train_test_split(all_imgs,random_state=32,test_size=0.3)
 train_x, val_x = train_test_split(train_x, random_state=32, test_size=0.2)
 
 noise_factor1 = 0.5
-noise_factor2 = 0.1
-Nmean = 0
-Nstd = 1
-x_train_noisy = train_x + (noise_factor1 * np.random.normal(loc=Nmean,scale=Nstd,size=train_x.shape))
-x_val_noisy = val_x + (noise_factor1 * np.random.normal(loc=Nmean,scale=Nstd,size=val_x.shape))
-x_test_noisy = test_x + ( noise_factor1 * np.random.normal(loc=Nmean, scale=Nstd, size=test_x.shape))
-# x_test_noisy = val_x + (noise_factor1 * np.random.normal(loc=Nmean,scale=Nstd,size=test_x.shape))
+#noise_factor2 = 0.1
+noise_mean = 0
+noise_std = 1
+x_train_noisy = train_x + (noise_factor1 * np.random.normal(loc=noise_mean,scale=noise_std,size=train_x.shape))
+x_val_noisy = val_x + (noise_factor1 * np.random.normal(loc=noise_mean,scale=noise_std,size=val_x.shape))
+x_test_noisy = test_x + ( noise_factor1 * np.random.normal(loc=noise_mean, scale=noise_std, size=test_x.shape))
+#x_test_noisy = val_x + (noise_factor1 * np.random.normal(loc=Nmean,scale=Nstd,size=test_x.shape))
 
 for i in range(5):
 

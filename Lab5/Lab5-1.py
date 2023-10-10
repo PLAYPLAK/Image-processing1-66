@@ -23,6 +23,8 @@ Reduce_factors = [2, 4, 8]
 inter_methods = [cv2.INTER_NEAREST, cv2.INTER_LINEAR, cv2.INTER_CUBIC, cv2.INTER_AREA]
 text = ["INTER_NEAREST", "INTER_LINEAR", "INTER_CUBIC", "INTER_AREA"]
 
+plt.figure(figsize=(10, 10))
+
 for l in range (4):
     Scale_factor = 1/Reduce_factors[0]
     image_resize = cv2.resize(input_img, None, fx=Scale_factor, fy=Scale_factor,interpolation=inter_methods[l])     
