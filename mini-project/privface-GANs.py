@@ -14,9 +14,9 @@ from PIL import Image
 filenames = glob.glob("mini-project/archive/images/*.png")
 all_imgs = []
 test_imgs = []
+blr_imgs = []
 #model face detect
 face_model = cv2.CascadeClassifier('mini-project/face-detect-model.xml')
-
 
 
 for i in range(len(filenames)):
@@ -24,6 +24,12 @@ for i in range(len(filenames)):
     img = np.array(img)
     img = img/255
     all_imgs.append(img)
+
+    blr_img = image.load_img(filenames[i],target_size=(128, 128, 3), interpolation="nearest")
+    blr_img = np.array(blr_img)
+    b_img = cv2.GaussianBlur(blr_img, (23,23), 30)
+    b_img = b_img/255
+    blr_imgs.append(b_img)
 
     if len(all_imgs) > (70/100) * len(filenames):
         b_img = Image.open(filenames[i])
@@ -34,9 +40,13 @@ for i in range(len(filenames)):
 
 
 all_imgs = np.array(all_imgs)
+blr_imgs = np.array(blr_imgs)
 
 train_img, _  = train_test_split(all_imgs,random_state=32,test_size=0.3)
 train_img,val_img = train_test_split(train_img,random_state=32,test_size=0.3)
+
+blr_train, _ = train_test_split(blr_imgs,random_state=32,test_size=0.3)
+blr_train, blr_val = train_test_split(blr_train,random_state=32,test_size=0.3)
 
 Nmean = 0
 Nstd = 1
@@ -103,27 +113,27 @@ gan.summary()
 #for epoch in range(16):
 
 
-d_loss_real = discriminator.fit(train_img, train_img, batch_size=16, epochs=30)
-#d_loss_fake = discriminator.fit(x_train_noisy , x_train_noisy , batch_size=16, epochs=30)
-g_loss = gan.fit(train_img, train_img, batch_size=16, epochs=30)
+d_loss_real = discriminator.fit(blr_train, blr_train, batch_size=16, epochs=20)
+d_loss_fake = discriminator.fit(train_img ,train_img , batch_size=16, epochs=20)
+g_loss = gan.fit(x_train_noisy, x_train_noisy, batch_size=16, epochs=20)
 
 formatted_d_loss_real = "{:.6f}".format(d_loss_real.history['loss'][0])
-#formatted_d_loss_fake = "{:.6f}".format(d_loss_fake.history['loss'][0])
+formatted_d_loss_fake = "{:.6f}".format(d_loss_fake.history['loss'][0])
 formatted_g_loss = "{:.6f}".format(g_loss.history['loss'][0])
 
-print(f"\nDiscriminator Loss (Real): {formatted_d_loss_real} | Generator Loss: {formatted_g_loss}")
-#print(f"\nDiscriminator Loss (Real): {formatted_d_loss_real} | Discriminator Loss (Fake): {formatted_d_loss_fake} | Generator Loss: {formatted_g_loss}")
+#print(f"\nDiscriminator Loss (Real): {formatted_d_loss_real} | Generator Loss: {formatted_g_loss}")
+print(f"\nDiscriminator Loss (Real): {formatted_d_loss_real} | Discriminator Loss (Fake): {formatted_d_loss_fake} | Generator Loss: {formatted_g_loss}")
 # Save the generator model
-generator.save('generator_model.keras')
+generator.save('generator2_model.keras')
 # Save the discriminator model
-discriminator.save('discriminator_model.keras')
+discriminator.save('discriminator2_model.keras')
 # Save the GAN model
-gan.save('gan_model.keras')
+gan.save('gan2_model.keras')
 
 
 plt.figure(figsize=(12, 10))
 plt.plot(d_loss_real.history['loss'])
-#plt.plot(d_loss_fake.history['accuracy'])
+plt.plot(d_loss_fake.history['accuracy'])
 plt.plot(g_loss.history['loss'])
 plt.title('Loss on Model')
 plt.ylabel('loss')
@@ -132,18 +142,21 @@ plt.legend(['Real Loss', 'Fake Loss', 'GANs Loss'], loc='upper right')
 plt.show()
 
 
-for i in range(3):
-    blurred_images = test_imgs[i+18]
+for i in range(1):
+    #blurred_images = test_imgs[i+18]
     #de = test_imgs[i+18]
-    #blurred_images = cv2.imread('mini-project/test3.jpg')
-    #de = cv2.imread('mini-project/test3.jpg')
-    #blurred_images = cv2.cvtColor(blurred_images, cv2.COLOR_BGR2RGB)
-    #de = cv2.cvtColor(de, cv2.COLOR_BGR2RGB)
+    blurred_images = cv2.imread('mini-project/test3.jpg')
+    de = cv2.imread('mini-project/test3.jpg')
+    blurred_images = cv2.cvtColor(blurred_images, cv2.COLOR_BGR2RGB)
+    de = cv2.cvtColor(de, cv2.COLOR_BGR2RGB)
     gray_image = cv2.cvtColor(blurred_images, cv2.COLOR_RGB2GRAY)
     face_detect = face_model.detectMultiScale(gray_image)
     plt.subplot(1, 2, 1)
     plt.title('Original')
     plt.imshow(test_imgs[i+18]) 
+
+    gray_image = cv2.cvtColor(blurred_images, cv2.COLOR_RGB2GRAY)
+    face_detect = face_model.detectMultiScale(gray_image)
 
     for (x,y,w,h) in face_detect:
         #blur image
@@ -154,18 +167,12 @@ for i in range(3):
         roi_color = cv2.resize(roi_color, (128, 128))
         blurred_face = gan.predict(np.expand_dims(roi_color, axis=0))
         
-        img_h, img_w, _ = roi_color.shape
+        img_h, img_w, _ = blurred_face.shape[1:]
+        #blurred_images[y:y+img_h, x:x+img_w] = blurred_face[0]
         blurred_face = cv2.resize(blurred_face[0], (img_w, img_h))
-        print('----------')
-        print(blurred_images[y:y+img_h, x:x+img_w].shape)
-        print('----------')
-        print(blurred_face.shape)
-        print('----------')
-        blurred_images[y:y+img_h, x:x+img_w] = cv2.GaussianBlur(blurred_face, (23,23), 30)
 
-    #original_height, original_width = blurred_images.shape[:2]
-    #de = cv2.resize(de, (original_height*0.5, original_width*0.5))
-    #blurred_images = cv2.resize(blurred_images, (original_height*0.5, original_width*0.5))
+        blurred_images[y:y+img_h, x:x+img_w] = blurred_face
+
     plt.subplot(1, 2, 2)
     plt.title('Blurred')
     plt.imshow(blurred_images) #blur
