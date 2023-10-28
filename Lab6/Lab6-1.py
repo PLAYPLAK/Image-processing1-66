@@ -33,8 +33,7 @@ for layer in model.layers[86:]:
     layer.trainable=True
 
 model.summary()
-"""
+
 for i, layer in enumerate(base_model.layers):
     print(i, layer.name)
 
-"""
