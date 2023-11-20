@@ -24,7 +24,6 @@ for i in range(len(filenames)):
     b_img = np.array(b_img)
     test_imgs.append(b_img)
 
-
 for i in range(len(test_imgs)):
     blurred_images = test_imgs[i]
     #de = test_imgs[i+18]
